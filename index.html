@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Amor</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff99cc, #ff6699);
+            font-family: 'Arial', cursive;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 102, 153, 0.5);
+            position: relative;
+        }
+
+        h1 {
+            color: #ff3366;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #siBtn {
+            background-color: #66ff66;
+            color: #006600;
+        }
+
+        #noBtn {
+            background-color: #ff6666;
+            color: #660000;
+            position: relative;
+        }
+
+        .corazon {
+            position: absolute;
+            font-size: 24px;
+            color: #ff3366;
+            animation: flotar 3s linear infinite;
+        }
+
+        @keyframes flotar {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .mensaje-amor {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #ff3366;
+        }
+
+        #siBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #66ff66;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💖 ¿Quieres ser mi novia? 💖</h1>
+        <div class="buttons">
+            <button id="siBtn" onclick="mostrarMensaje()">¡Sí!</button>
+            <button id="noBtn" onmouseover="moverBoton()">No</button>
+        </div>
+        <p id="mensajeAmor" class="mensaje-amor"></p>
+    </div>
+
+    <script>
+        function moverBoton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+            crearCorazon();
+        }
+
+        function crearCorazon() {
+            const corazon = document.createElement('div');
+            corazon.className = 'corazon';
+            corazon.innerHTML = '💖';
+            corazon.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(corazon);
+            
+            setTimeout(() => {
+                corazon.remove();
+            }, 3000);
+        }
+
+        function mostrarMensaje() {
+            document.getElementById('mensajeAmor').style.display = 'block';
+            document.getElementById('mensajeAmor').innerHTML = 
+                '¡Eres la mejor decisión de mi vida! 💖 Te amo infinito 😊💕';
+            
+            // Crear muchos corazones
+            for(let i = 0; i < 50; i++) {
+                setTimeout(crearCorazon, i * 100);
+            }
+
+            // Eliminar botones
+            document.querySelector('.buttons').remove();
+            
+            // Agregar efecto de confeti
+            setInterval(crearCorazon, 100);
+        }
+
+        // Crear algunos corazones iniciales
+        setInterval(crearCorazon, 500);
+    </script>
+</body>
+</html>
