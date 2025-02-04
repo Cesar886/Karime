@@ -120,7 +120,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>💖 ¿Quieres ser mi novia para siempre? 💖</h1>
+        <h1>💖 ¿Quieres ser el amor de mi vida para siempre? 💖</h1>
         <div class="buttons">
             <button id="siBtn" onclick="mostrarMensaje()">¡Sí! 😍</button>
             <button id="noBtn" ontouchstart="moverBoton()" onmouseover="moverBoton()">No 🙈</button>
@@ -157,7 +157,7 @@
         function mostrarMensaje() {
             const mensaje = document.getElementById('mensajeAmor');
             mensaje.style.display = 'block';
-            mensaje.innerHTML = '¡Ahora eres oficialmente el amor de mi vida! 💍💘<br>Te amo más que a nada en este mundo 🌎✨';
+            mensaje.innerHTML = '¡Sabia que dirias que si! 💍💘<br>Te amo más que a nada en este mundo cariño✨';
             
             // Animación de corazones
             const corazones = () => {
@@ -165,7 +165,7 @@
                     setTimeout(crearCorazon, i * 200);
                 }
             }
-            
+
             
             corazones();
             const explosion = setInterval(corazones, 100);
