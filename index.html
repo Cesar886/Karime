@@ -2,53 +2,65 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para Mi Amor</title>
     <style>
+        * {
+            box-sizing: border-box;
+            touch-action: manipulation;
+        }
+
         body {
             margin: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             background: linear-gradient(45deg, #ff99cc, #ff6699);
             font-family: 'Arial', cursive;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .container {
             text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            margin: 15px;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(255, 102, 153, 0.5);
-            position: relative;
+            width: 90%;
+            max-width: 500px;
         }
 
         h1 {
             color: #ff3366;
-            font-size: 2.5em;
-            margin-bottom: 30px;
+            font-size: 1.8rem;
+            margin: 20px 0;
+            line-height: 1.4;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .buttons {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
+            margin: 25px 0;
         }
 
         button {
             padding: 15px 30px;
-            font-size: 1.2em;
+            font-size: 1.3rem;
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
+            min-width: 120px;
         }
 
         #siBtn {
-            background-color: #66ff66;
+            background-color: #76ff76;
             color: #006600;
         }
 
@@ -56,6 +68,7 @@
             background-color: #ff6666;
             color: #660000;
             position: relative;
+            transition: all 0.5s ease;
         }
 
         .corazon {
@@ -63,6 +76,7 @@
             font-size: 24px;
             color: #ff3366;
             animation: flotar 3s linear infinite;
+            user-select: none;
         }
 
         @keyframes flotar {
@@ -72,23 +86,44 @@
 
         .mensaje-amor {
             display: none;
-            margin-top: 20px;
-            font-size: 1.5em;
+            margin: 20px 0;
+            font-size: 1.4rem;
             color: #ff3366;
+            line-height: 1.5;
+            padding: 0 10px;
         }
 
-        #siBtn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px #66ff66;
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+                margin: 15px 0;
+            }
+            
+            button {
+                padding: 12px 25px;
+                font-size: 1.2rem;
+                min-width: 110px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+
+        @media (hover: hover) {
+            #siBtn:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 15px #66ff66;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💖 ¿Quieres ser mi novia? 💖</h1>
+        <h1>💖 ¿Quieres ser mi novia para siempre? 💖</h1>
         <div class="buttons">
-            <button id="siBtn" onclick="mostrarMensaje()">¡Sí!</button>
-            <button id="noBtn" onmouseover="moverBoton()">No</button>
+            <button id="siBtn" onclick="mostrarMensaje()">¡Sí! 😍</button>
+            <button id="noBtn" ontouchstart="moverBoton()" onmouseover="moverBoton()">No 🙈</button>
         </div>
         <p id="mensajeAmor" class="mensaje-amor"></p>
     </div>
@@ -96,11 +131,16 @@
     <script>
         function moverBoton() {
             const noBtn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
+            const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            
+            noBtn.style.transition = 'all 0.5s ease';
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = Math.min(Math.max(x, 10), maxX) + 'px';
+            noBtn.style.top = Math.min(Math.max(y, 10), maxY) + 'px';
+            
             crearCorazon();
         }
 
@@ -111,30 +151,36 @@
             corazon.style.left = Math.random() * window.innerWidth + 'px';
             document.body.appendChild(corazon);
             
-            setTimeout(() => {
-                corazon.remove();
-            }, 3000);
+            setTimeout(() => corazon.remove(), 3000);
         }
 
         function mostrarMensaje() {
-            document.getElementById('mensajeAmor').style.display = 'block';
-            document.getElementById('mensajeAmor').innerHTML = 
-                '¡Eres la mejor decisión de mi vida! 💖 Te amo infinito 😊💕';
+            const mensaje = document.getElementById('mensajeAmor');
+            mensaje.style.display = 'block';
+            mensaje.innerHTML = '¡Ahora eres oficialmente el amor de mi vida! 💍💘<br>Te amo más que a nada en este mundo 🌎✨';
             
-            // Crear muchos corazones
-            for(let i = 0; i < 50; i++) {
-                setTimeout(crearCorazon, i * 100);
+            // Animación de corazones
+            const corazones = () => {
+                for(let i = 0; i < 5; i++) {
+                    setTimeout(crearCorazon, i * 200);
+                }
             }
-
-            // Eliminar botones
-            document.querySelector('.buttons').remove();
             
-            // Agregar efecto de confeti
-            setInterval(crearCorazon, 100);
+            
+            corazones();
+            const explosion = setInterval(corazones, 100);
+            
+            setTimeout(() => clearInterval(explosion), 5000);
+            document.querySelector('.buttons').remove();
         }
 
-        // Crear algunos corazones iniciales
-        setInterval(crearCorazon, 500);
+        // Evitar zoom en dispositivos móviles
+        document.addEventListener('gesturestart', (e) => e.preventDefault());
+        
+        // Corazones iniciales suaves
+        setInterval(() => {
+            if(Math.random() < 0.3) crearCorazon();
+        }, 1000);
     </script>
 </body>
 </html>
